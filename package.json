@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "chart.js": "^2.9.3",
     "d3": "^5.15.0",
     "html5-router": "^2.0.0",
     "minimal-router": "^1.0.5",
