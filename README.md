@@ -5,6 +5,8 @@
 
 Uses yarn (packet manager) webpack (bundler), handlebars (templates), bootstrap (style).
 
+Everything is static, datasource are CSV files in master branch of this repo. Published on github pages.
+
 ```
 yarn install # install dependencies
 yarn build # build into dist
