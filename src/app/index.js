@@ -4,4 +4,10 @@ import {
 } from './router'
 
 
-navigate('home')
+let currentRoute = router.getCurrentRoute(window.location.hash)
+
+if (!currentRoute) {
+  navigate('home')
+} else {
+  navigate(currentRoute.name)
+}

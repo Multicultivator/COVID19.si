@@ -2,6 +2,9 @@ import Router from 'minimal-router'
 import {
   render as renderHome
 } from './home'
+import {
+  render as renderMap
+} from './map'
 
 const navbar = require("../templates/navbar.hbs");
 
@@ -12,14 +15,13 @@ router.add('home', '/', ({
   query,
   params
 }) => {
-  console.log("qp", query, params)
   document.getElementById('navbar').innerHTML = navbar();
   document.getElementById('content').innerHTML = renderHome()
 });
 
 router.add('map', '/map', () => {
   document.getElementById('navbar').innerHTML = navbar();
-  document.getElementById('content').innerHTML = 'Map TODO'
+  document.getElementById('content').innerHTML = renderMap()
 });
 
 router.add('about', '/about', () => {
@@ -31,7 +33,6 @@ router.add('about', '/about', () => {
 window.onpopstate = function (event) {
   // dispatch current url to route
   var path = document.location.hash;
-  this.console.log("onpopstate", path)
   if (document.location.search.length) {
     path += '?' + document.location.search;
   }

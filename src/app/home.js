@@ -1,19 +1,17 @@
-import * as d3 from 'd3';
+import * as d3 from 'd3'
 import {
   TimeseriesChart
-} from './chart';
+} from './chart'
 
 
-import Chart from 'chart.js';
+import Chart from 'chart.js'
 
-function render() {
-  const home = require("../templates/home.hbs");
+export function render() {
+  const home = require("../templates/home.hbs")
 
-  let dataPromise = d3.csv("https://raw.githubusercontent.com/overlordtm/COVID19.si/master/data/full.csv");
+  let dataPromise = d3.csv("https://raw.githubusercontent.com/overlordtm/COVID19.si/master/data/full.csv")
 
   dataPromise.then(data => {
-
-    console.log("data", data.columns)
 
     let seriesPositive = data.map(p => {
       return {
@@ -29,7 +27,6 @@ function render() {
       }
     })
 
-    console.log("series", seriesPositive)
 
     new Chart(document.querySelector("#chart-tests > canvas"), {
       type: 'line',
@@ -69,7 +66,6 @@ function render() {
     let seriesRegions = []
     data.columns.forEach(col => {
       if (col.startsWith('region.')) {
-        console.log(col)
         seriesRegions[col] = data.map(p => {
           return {
             t: new Date(Date.parse(p['date'])),
@@ -114,9 +110,4 @@ function render() {
   })
 
   return home()
-}
-
-
-export {
-  render
 }
