@@ -12,7 +12,8 @@ function render() {
   let dataPromise = d3.csv("https://raw.githubusercontent.com/overlordtm/COVID19.si/master/data/full.csv");
 
   dataPromise.then(data => {
-    // console.log("elem", data)
+
+    console.log("data", data.columns)
 
     let seriesPositive = data.map(p => {
       return {
@@ -53,6 +54,52 @@ function render() {
         scales: {
           yAxes: [{
             id: 'positive',
+            type: 'linear'
+          }],
+          xAxes: [{
+            type: 'time',
+            time: {
+              unit: 'day'
+            }
+          }]
+        }
+      }
+    });
+
+    let seriesRegions = []
+    data.columns.forEach(col => {
+      if (col.startsWith('region.')) {
+        console.log(col)
+        seriesRegions[col] = data.map(p => {
+          return {
+            t: new Date(Date.parse(p['date'])),
+            y: p[col]
+          }
+        })
+      }
+    });
+
+
+    let datasets = Object.keys(seriesRegions).map(key => {
+      return {
+        label: key,
+        data: seriesRegions[key],
+        yAxisID: 'count'
+      }
+    })
+
+
+    new Chart(document.querySelector("#chart-regions > canvas"), {
+      type: 'line',
+      data: {
+        datasets: datasets,
+      },
+      options: {
+        responsive: true,
+        label: "Graf",
+        scales: {
+          yAxes: [{
+            id: 'count',
             type: 'linear'
           }],
           xAxes: [{

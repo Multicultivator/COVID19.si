@@ -5,5 +5,3 @@ import {
 
 
 navigate('home')
-
-console.log("test")
